@@ -32,13 +32,13 @@ async function getImages(query){
 
 searchButton.addEventListener('click', ()=>{
     getImages(searchBar.value);
-    searchBar.value = '';
+    searchBar.blur()
 });
 
 searchBar.addEventListener('keydown', (event)=>{
     if (event.keyCode === 13){
         getImages(searchBar.value);
-        searchBar.value = '';
+        searchBar.blur()
     }
 })
 

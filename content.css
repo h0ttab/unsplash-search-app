@@ -1,7 +1,10 @@
 .content {
+    display: flex;
+    flex-wrap: wrap;
     height: fit-content;
     max-width: 100%;
     font-size: 0;
+    justify-content: center;
 }
 
 .content-pictureBlock {
