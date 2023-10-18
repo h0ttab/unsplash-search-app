@@ -1,0 +1,25 @@
+.content {
+    height: fit-content;
+    max-width: 100%;
+    font-size: 0;
+}
+
+.content-pictureBlock {
+    display: inline-flex;
+    aspect-ratio: 0.75 / 1;
+    width: 23%;
+    max-width: 23%;
+    border: 1px gray solid;
+    background-color: rgba(128, 128, 128, 0.5);
+    justify-content: center;
+    vertical-align: middle;
+    margin: 10px;
+}
+
+.content-pictureBlock__image {
+    display: flex;
+    width: 90%;
+    height: max-content;
+    max-height: 90%;
+    margin: auto;
+}
