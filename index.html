@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="searchBar.css">
     <link rel="stylesheet" href="content.css">
+    <link rel="stylesheet" href="controls.css">
     <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
     <script src="script.js" defer></script>
     <title>Unsplash search</title>
@@ -22,11 +23,11 @@
 
     <div class="content">
     </div>
-    <div class="controlsHide" id="controls">
-        <button class="previousPage" onclick="changePage(-1)"><<</button>
+    <div class="controls" id="controlsHide">
+        <button class="previousPage controlButton" onclick="changePage(-1)">← Previous</button>
         <input type="number" value="1" min = 1 class="currentPage">
         <span class="totalPages"></span>
-        <button class="nextPage" onclick="changePage(1)">>></button>
+        <button class="nextPage controlButton" onclick="changePage(1)"> Next →</button>
     </div>
 </body>
 </html>

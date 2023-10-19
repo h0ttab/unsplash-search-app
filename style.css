@@ -12,11 +12,3 @@ body {
     display: flex;
     height: 150px;
 }
-
-.controlsHide {
-    display: none;
-}
-
-.controlsShow{
-    display: block;
-}
