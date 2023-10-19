@@ -2,6 +2,7 @@
     display: flex;
     flex-wrap: wrap;
     height: fit-content;
+    min-height: 75vh;
     max-width: 100%;
     font-size: 0;
     justify-content: center;
@@ -24,5 +25,13 @@
     width: 90%;
     height: max-content;
     max-height: 90%;
+    margin: auto;
+}
+
+.content-noResultsMessage{
+    display: flex;
+    font-size: 75px;
+    font-family: sans-serif;
+    color: rgb(30, 30, 30);
     margin: auto;
 }

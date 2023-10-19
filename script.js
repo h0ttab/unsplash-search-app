@@ -4,6 +4,15 @@ const searchButton = document.querySelector('#searchBar-button')
 
 const searchBar = document.querySelector('.searchBar-inputField')
 
+const noResultsMessage = document.createElement('p')
+noResultsMessage.textContent = 'Nothing was found for your request...';
+noResultsMessage.className = 'content-noResultsMessage'
+
+const prevPageButton = document.querySelector(".previousPage");
+const nextPageButton = document.querySelector(".nextPage");
+const currentPageCounter = document.querySelector(".currentPage")
+const totalPagesCounter = document.querySelector(".totalPages");
+
 function createImage (url){
     const pictureBlock = document.createElement('div');
     pictureBlock.className = 'content-pictureBlock';
@@ -14,19 +23,28 @@ function createImage (url){
     return pictureBlock;
 }
 
-async function getImages(query){
+async function getImages(query, page){
+    if (page === undefined){
+        currentPageCounter.value = 1;
+    }
     content.innerHTML = '';
     const {data} = await axios.get(`https://api.unsplash.com/search/photos/`, {
         params : {
             query: `${query}`,
+            page: page ?? 1,
             per_page: 12,
         },
         headers : {
             "Authorization": "Client-ID 9gjvoXWa0NBklahjBs3QbNGnDsn7NnAUg6bqWktidPg"
         }})
-        console.log(data.results);
-    for (const iterator of data.results) {
-        content.appendChild(createImage(iterator.urls.regular))
+    totalPagesCounter.textContent = `/${data.total_pages}`
+    currentPageCounter.setAttribute('max', data.total_pages)
+    if (data.total === 0 && data.total_pages === 0) {
+        content.appendChild(noResultsMessage);
+    } else {
+        for (const iterator of data.results) {
+            content.appendChild(createImage(iterator.urls.regular))
+        }
     }
 }
 
@@ -42,26 +60,12 @@ searchBar.addEventListener('keydown', (event)=>{
     }
 })
 
-/*
-const test = async ()=>{
-    const id = 'PxEito_SyZg';
-    const {data} = await axios.get(`https://api.unsplash.com/photos/${id}`, {
-    headers : {
-        "Authorization": "Client-ID 9gjvoXWa0NBklahjBs3QbNGnDsn7NnAUg6bqWktidPg"
-    }})
-    console.log(data.urls.regular);
-};
-
-const test2 = (async ()=>{
-    const {data} = await axios.get(`https://api.unsplash.com/search/photos/`, {
-    params : {
-        query: 'tall building'
-    },
-    headers : {
-        "Authorization": "Client-ID 9gjvoXWa0NBklahjBs3QbNGnDsn7NnAUg6bqWktidPg"
-    }})
-    return data;
-})();
-
-console.log(test2);
-*/
+function changePage(value){
+    const targetPage = +currentPageCounter.value + value;
+    if (targetPage < 1){
+        targetPage = 1;
+        currentPageCounter.value = 1;
+    }
+    currentPageCounter.value = Number(currentPageCounter.value) + value;
+    getImages(searchBar.value, targetPage)
+}
