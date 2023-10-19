@@ -8,6 +8,8 @@ const noResultsMessage = document.createElement('p')
 noResultsMessage.textContent = 'Nothing was found for your request...';
 noResultsMessage.className = 'content-noResultsMessage'
 
+const controls = document.querySelector("#controls");
+
 const prevPageButton = document.querySelector(".previousPage");
 const nextPageButton = document.querySelector(".nextPage");
 const currentPageCounter = document.querySelector(".currentPage")
@@ -41,7 +43,9 @@ async function getImages(query, page){
     currentPageCounter.setAttribute('max', data.total_pages)
     if (data.total === 0 && data.total_pages === 0) {
         content.appendChild(noResultsMessage);
+        controls.className = 'controlsHide'
     } else {
+        controls.className = 'controlsShow'
         for (const iterator of data.results) {
             content.appendChild(createImage(iterator.urls.regular))
         }
@@ -57,6 +61,13 @@ searchBar.addEventListener('keydown', (event)=>{
     if (event.keyCode === 13){
         getImages(searchBar.value);
         searchBar.blur()
+    }
+})
+
+currentPageCounter.addEventListener('keydown', (event)=>{
+    if (event.keyCode === 13){
+        const targetPage = +currentPageCounter.value;
+        getImages(searchBar.value, targetPage);
     }
 })
 
