@@ -71,6 +71,11 @@ currentPageCounter.addEventListener('keydown', (event)=>{
             currentPageCounter.value = 1;
         }
         const targetPage = +currentPageCounter.value;
+        window.scroll({
+            top: 0, 
+            left: 0, 
+            behavior: 'smooth'
+          });
         getImages(searchBar.value, targetPage);
     }
 })
@@ -94,5 +99,10 @@ function changePage(value){
         currentPageCounter.value = 1;
     }
     currentPageCounter.value = Number(currentPageCounter.value) + value;
+    window.scroll({
+        top: 0, 
+        left: 0, 
+        behavior: 'smooth'
+      });
     getImages(searchBar.value, targetPage)
 }
