@@ -122,5 +122,5 @@ function changePage(value){
         left: 0, 
         behavior: 'smooth'
       });
-    getImages(currentQuery, targetPage)
+    setTimeout(()=>{getImages(currentQuery, targetPage)}, 750)
 }
