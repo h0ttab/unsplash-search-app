@@ -33,4 +33,6 @@
     font-family: sans-serif;
     color: rgb(30, 30, 30);
     margin: auto;
+    position: relative;
+    top: 30vh;
 }
