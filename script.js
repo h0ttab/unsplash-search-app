@@ -15,6 +15,10 @@ const nextPageButton = document.querySelector(".nextPage");
 const currentPageCounter = document.querySelector(".currentPage")
 const totalPagesCounter = document.querySelector(".totalPages");
 
+const loader = document.querySelector('.loader');
+
+let currentQuery;
+
 function createImage (url){
     const pictureBlock = document.createElement('div');
     pictureBlock.className = 'content-pictureBlock';
@@ -26,8 +30,17 @@ function createImage (url){
 }
 
 async function getImages(query, page){
+    currentQuery = query;
     if (page === undefined){
         currentPageCounter.value = 1;
+    }
+    content.innerHTML = '';
+    loader.style.display = "flex";
+    if (!page) {
+        controls.id = 'controlsHide'
+    } else {
+        loader.style.top = '50px'
+        controls.style.marginTop = '120px'
     }
     const {data} = await axios.get(`https://api.unsplash.com/search/photos/`, {
         params : {
@@ -39,9 +52,13 @@ async function getImages(query, page){
             "Authorization": "Client-ID 9gjvoXWa0NBklahjBs3QbNGnDsn7NnAUg6bqWktidPg"
         }
     })
-    content.innerHTML = '';
-    totalPagesCounter.textContent = `/ ${data.total_pages}`
-    currentPageCounter.setAttribute('max', data.total_pages)
+    loader.style.top = '35vh';
+    loader.style.display = "none";
+    controls.style.marginTop = '0px'
+    controls.id = 'controlsShow';
+    const totalPages = data.total_pages > 200 ? 200 : data.total_pages
+    totalPagesCounter.textContent = `/ ${totalPages}`
+    currentPageCounter.setAttribute('max', totalPages)
     if (data.total === 0 && data.total_pages === 0) {
         content.appendChild(noResultsMessage);
         controls.id = 'controlsHide'
@@ -89,6 +106,7 @@ currentPageCounter.addEventListener('input',() => {
 })
 
 function changePage(value){
+    searchBar.value = currentQuery;
     let targetPage = +currentPageCounter.value + value;
     if (targetPage < 1){
         targetPage = 1;
@@ -104,5 +122,5 @@ function changePage(value){
         left: 0, 
         behavior: 'smooth'
       });
-    getImages(searchBar.value, targetPage)
+    getImages(currentQuery, targetPage)
 }
