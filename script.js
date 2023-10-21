@@ -4,9 +4,7 @@ const searchButton = document.querySelector('#searchBar-button')
 
 const searchBar = document.querySelector('.searchBar-inputField')
 
-const noResultsMessage = document.createElement('p')
-noResultsMessage.textContent = 'Nothing was found for your request...';
-noResultsMessage.className = 'content-noResultsMessage'
+const noResultsMessage = document.querySelector('.noResultsMessage')
 
 const controls = document.querySelector(".controls");
 
@@ -19,28 +17,63 @@ const loader = document.querySelector('.loader');
 
 let currentQuery;
 
+const KEYBOARD = {
+    enter: 13,
+}
+
+const CONTENT = {
+    clear: "",
+}
+
+const LOADER = {
+    show: "flex",
+    hide: "none",
+    position : {
+        top_loading: "50px",
+        top_onload: "35vh",
+    }
+}
+
+const CONTROLS = {
+    hide: "controlsHide",
+    show: "controlsShow",
+    position : {
+        margin_top_loading: "120px",
+        margin_top_onload: "0px",
+    }
+}
+
+const NO_RESULT_MESSAGE = {
+    hide: "none",
+    show: "flex",
+}
+
+function getTotalPages(){
+    return +(totalPagesCounter.textContent.slice(2))
+}
+
 function createImage (url){
     const pictureBlock = document.createElement('div');
     pictureBlock.className = 'content-pictureBlock';
+
     const image = document.createElement('img');
     image.src = url;
-    image.className = 'content-pictureBlock__image'
+    image.className = 'content-pictureBlock__image';
+
     pictureBlock.appendChild(image);
     return pictureBlock;
 }
 
 async function getImages(query, page){
     currentQuery = query;
-    if (page === undefined){
-        currentPageCounter.value = 1;
-    }
-    content.innerHTML = '';
-    loader.style.display = "flex";
+    content.innerHTML = CONTENT.clear;
+    loader.style.display = LOADER.show;
     if (!page) {
-        controls.id = 'controlsHide'
+        currentPageCounter.value = 1;
+        controls.id = CONTROLS.hide
     } else {
-        loader.style.top = '50px'
-        controls.style.marginTop = '120px'
+        loader.style.top = LOADER.position.top_loading
+        controls.style.marginTop = CONTROLS.position.margin_top_loading
     }
     const {data} = await axios.get(`https://api.unsplash.com/search/photos/`, {
         params : {
@@ -52,18 +85,19 @@ async function getImages(query, page){
             "Authorization": "Client-ID 9gjvoXWa0NBklahjBs3QbNGnDsn7NnAUg6bqWktidPg"
         }
     })
-    loader.style.top = '35vh';
-    loader.style.display = "none";
-    controls.style.marginTop = '0px'
-    controls.id = 'controlsShow';
+    loader.style.top = LOADER.position.top_onload;
+    loader.style.display = LOADER.hide;
+    controls.style.marginTop = CONTROLS.position.margin_top_onload
+    controls.id = CONTROLS.show;
     const totalPages = data.total_pages > 200 ? 200 : data.total_pages
     totalPagesCounter.textContent = `/ ${totalPages}`
     currentPageCounter.setAttribute('max', totalPages)
     if (data.total === 0 && data.total_pages === 0) {
-        content.appendChild(noResultsMessage);
-        controls.id = 'controlsHide'
+        noResultsMessage.style.display = NO_RESULT_MESSAGE.show;
+        controls.id = CONTROLS.hide;
     } else {
-        controls.id = 'controlsShow'
+        noResultsMessage.style.display = NO_RESULT_MESSAGE.hide;
+        controls.id = CONTROLS.show
         for (const iterator of data.results) {
             content.appendChild(createImage(iterator.urls.regular))
         }
@@ -76,15 +110,16 @@ searchButton.addEventListener('click', ()=>{
 });
 
 searchBar.addEventListener('keydown', (event)=>{
-    if (event.keyCode === 13){
+    if (event.keyCode === KEYBOARD.enter){
         getImages(searchBar.value);
         searchBar.blur()
     }
 })
 
 currentPageCounter.addEventListener('keydown', (event)=>{
-    if (event.keyCode === 13){
-        if (currentPageCounter.value == '' || +currentPageCounter.value == NaN){
+    if (event.keyCode === KEYBOARD.enter){
+        currentPageCounter.value = Number(currentPageCounter.value);
+        if (!currentPageCounter.value){
             currentPageCounter.value = 1;
         }
         const targetPage = +currentPageCounter.value;
@@ -98,9 +133,11 @@ currentPageCounter.addEventListener('keydown', (event)=>{
 })
 
 currentPageCounter.addEventListener('input',() => {
-    if (currentPageCounter.value > +(totalPagesCounter.textContent.slice(2))) {
-        currentPageCounter.value = +(totalPagesCounter.textContent.slice(2))
-    } else if (currentPageCounter.value < 1 && currentPageCounter.value !== ''){
+    currentPageCounter.value = Number(currentPageCounter.value);
+    console.log(currentPageCounter.value);
+    if (currentPageCounter.value > getTotalPages()) {
+        currentPageCounter.value = getTotalPages();
+    } else if ( currentPageCounter.value == '' || Number(currentPageCounter.value) == NaN ){
         currentPageCounter.value = 1;
     }
 })

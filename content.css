@@ -27,8 +27,9 @@
     margin: auto;
 }
 
-.content-noResultsMessage{
-    display: flex;
+.noResultsMessage{
+    display: none;
+    width: fit-content;
     font-size: 75px;
     font-family: sans-serif;
     color: rgb(30, 30, 30);
