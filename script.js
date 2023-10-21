@@ -29,8 +29,8 @@ const LOADER = {
     show: "flex",
     hide: "none",
     position : {
-        top_loading: "50px",
-        top_onload: "35vh",
+        loading_another_page: "50px",
+        deafult: "35vh",
     }
 }
 
@@ -38,8 +38,8 @@ const CONTROLS = {
     hide: "controlsHide",
     show: "controlsShow",
     position : {
-        margin_top_loading: "120px",
-        margin_top_onload: "0px",
+        loading_another_page: "120px",
+        default: "0px",
     }
 }
 
@@ -72,9 +72,10 @@ async function getImages(query, page){
         currentPageCounter.value = 1;
         controls.id = CONTROLS.hide
     } else {
-        loader.style.top = LOADER.position.top_loading
-        controls.style.marginTop = CONTROLS.position.margin_top_loading
+        loader.style.top = LOADER.position.loading_another_page
+        controls.style.marginTop = CONTROLS.position.loading_another_page
     }
+
     const {data} = await axios.get(`https://api.unsplash.com/search/photos/`, {
         params : {
             query: `${query}`,
@@ -85,13 +86,16 @@ async function getImages(query, page){
             "Authorization": "Client-ID 9gjvoXWa0NBklahjBs3QbNGnDsn7NnAUg6bqWktidPg"
         }
     })
-    loader.style.top = LOADER.position.top_onload;
+    
+    loader.style.top = LOADER.position.deafult;
     loader.style.display = LOADER.hide;
-    controls.style.marginTop = CONTROLS.position.margin_top_onload
+    controls.style.marginTop = CONTROLS.position.default
     controls.id = CONTROLS.show;
+
     const totalPages = data.total_pages > 200 ? 200 : data.total_pages
     totalPagesCounter.textContent = `/ ${totalPages}`
     currentPageCounter.setAttribute('max', totalPages)
+
     if (data.total === 0 && data.total_pages === 0) {
         noResultsMessage.style.display = NO_RESULT_MESSAGE.show;
         controls.id = CONTROLS.hide;
@@ -129,31 +133,34 @@ currentPageCounter.addEventListener('keydown', (event)=>{
             behavior: 'smooth'
           });
         getImages(searchBar.value, targetPage);
+        currentPageCounter.blur();
     }
 })
 
 currentPageCounter.addEventListener('input',() => {
-    currentPageCounter.value = Number(currentPageCounter.value);
-    console.log(currentPageCounter.value);
-    if (currentPageCounter.value > getTotalPages()) {
-        currentPageCounter.value = getTotalPages();
-    } else if ( currentPageCounter.value == '' || Number(currentPageCounter.value) == NaN ){
+    let value = currentPageCounter.value;
+    if (isNaN( Number(value) ) || Number(value) === 0){
+        console.log('detected');
+        value = value.replace(/[^1-9]/g, "");
+    }
+    value = value > getTotalPages() ? getTotalPages() : value;
+    currentPageCounter.value = value;
+})
+
+currentPageCounter.addEventListener('blur', ()=>{
+    if (currentPageCounter.value == '') {
         currentPageCounter.value = 1;
     }
 })
 
 function changePage(value){
     searchBar.value = currentQuery;
-    let targetPage = +currentPageCounter.value + value;
-    if (targetPage < 1){
+    let targetPage = Number(currentPageCounter.value) + value;
+    if (targetPage < 1 || targetPage == NaN || targetPage == 0){
         targetPage = 1;
         currentPageCounter.value = 1;
     }
-    if (targetPage == NaN || targetPage == 0){
-        targetPage = 1;
-        currentPageCounter.value = 1;
-    }
-    currentPageCounter.value = Number(currentPageCounter.value) + value;
+    currentPageCounter.value = targetPage;
     window.scroll({
         top: 0, 
         left: 0, 
