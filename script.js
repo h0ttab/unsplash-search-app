@@ -1,3 +1,5 @@
+let API_KEY = getAPI_KEY(); //9gjvoXWa0NBklahjBs3QbNGnDsn7NnAUg6bqWktidPg
+
 const content = document.querySelector('.content')
 
 const searchButton = document.querySelector('#searchBar-button')
@@ -48,6 +50,28 @@ const NO_RESULT_MESSAGE = {
     show: "flex",
 }
 
+async function getAPI_KEY(){
+    const KEY = prompt('Enter your Unsplash API key', '');
+    var response;
+    try {
+        response = await axios.get('https://api.unsplash.com/photos/random', {
+        headers: {
+            "Authorization": `Client-ID ${KEY}`,
+        }
+        })
+    } catch(e){console.log(e)}
+
+    if (response && response.status === 200){
+        alert('Your API key is successfully accepted!');
+        API_KEY = KEY;
+    } else if (KEY === null) {
+        getAPI_KEY();
+    } else {
+        alert('Provided API key is INVALID or Unsplash API is unavailable. Try again.');
+        getAPI_KEY();
+    }
+}
+
 function getTotalPages(){
     return +(totalPagesCounter.textContent.slice(2))
 }
@@ -83,7 +107,7 @@ async function getImages(query, page){
             per_page: 12,
         },
         headers : {
-            "Authorization": "Client-ID 9gjvoXWa0NBklahjBs3QbNGnDsn7NnAUg6bqWktidPg"
+            "Authorization": `Client-ID ${API_KEY}`
         }
     })
     
