@@ -76,16 +76,12 @@ async function getImages(query, page){
         controls.style.marginTop = CONTROLS.position.loading_another_page
     }
 
-    const {data} = await axios.get(`https://api.unsplash.com/search/photos/`, {
-        params : {
-            query: `${query}`,
-            page: page ?? 1,
-            per_page: 12,
-        },
-        headers : {
-            "Authorization": "Client-ID 9gjvoXWa0NBklahjBs3QbNGnDsn7NnAUg6bqWktidPg"
+    const {data} = await axios.get('http://89.191.229.4:3000/', {
+        params: {
+            query: query,
+            page: page??1,
         }
-    })
+    });
     
     loader.style.top = LOADER.position.deafult;
     loader.style.display = LOADER.hide;
