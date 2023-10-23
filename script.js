@@ -4,9 +4,7 @@ const searchButton = document.querySelector('#searchBar-button')
 
 const searchBar = document.querySelector('.searchBar-inputField')
 
-const noResultsMessage = document.createElement('p')
-noResultsMessage.textContent = 'Nothing was found for your request...';
-noResultsMessage.className = 'content-noResultsMessage'
+const noResultsMessage = document.querySelector('.noResultsMessage')
 
 const controls = document.querySelector(".controls");
 
@@ -19,51 +17,87 @@ const loader = document.querySelector('.loader');
 
 let currentQuery;
 
+const KEYBOARD = {
+    enter: 13,
+}
+
+const CONTENT = {
+    clear: "",
+}
+
+const LOADER = {
+    show: "flex",
+    hide: "none",
+    position : {
+        loading_another_page: "50px",
+        deafult: "35vh",
+    }
+}
+
+const CONTROLS = {
+    hide: "controlsHide",
+    show: "controlsShow",
+    position : {
+        loading_another_page: "120px",
+        default: "0px",
+    }
+}
+
+const NO_RESULT_MESSAGE = {
+    hide: "none",
+    show: "flex",
+}
+
+function getTotalPages(){
+    return +(totalPagesCounter.textContent.slice(2))
+}
+
 function createImage (url){
     const pictureBlock = document.createElement('div');
     pictureBlock.className = 'content-pictureBlock';
+
     const image = document.createElement('img');
     image.src = url;
-    image.className = 'content-pictureBlock__image'
+    image.className = 'content-pictureBlock__image';
+
     pictureBlock.appendChild(image);
     return pictureBlock;
 }
 
 async function getImages(query, page){
     currentQuery = query;
-    if (page === undefined){
-        currentPageCounter.value = 1;
-    }
-    content.innerHTML = '';
-    loader.style.display = "flex";
+    content.innerHTML = CONTENT.clear;
+    loader.style.display = LOADER.show;
     if (!page) {
-        controls.id = 'controlsHide'
+        currentPageCounter.value = 1;
+        controls.id = CONTROLS.hide
     } else {
-        loader.style.top = '50px'
-        controls.style.marginTop = '120px'
+        loader.style.top = LOADER.position.loading_another_page
+        controls.style.marginTop = CONTROLS.position.loading_another_page
     }
-    const {data} = await axios.get(`https://api.unsplash.com/search/photos/`, {
-        params : {
-            query: `${query}`,
-            page: page ?? 1,
-            per_page: 12,
-        },
-        headers : {
-            "Authorization": "Client-ID 9gjvoXWa0NBklahjBs3QbNGnDsn7NnAUg6bqWktidPg"
+
+    const {data} = await axios.get('http://89.191.229.4:3000/', {
+        params: {
+            query: query,
+            page: page??1,
         }
-    })
-    loader.style.top = '35vh';
-    loader.style.display = "none";
-    controls.style.marginTop = '0px'
-    controls.id = 'controlsShow';
+    });
+    
+    loader.style.top = LOADER.position.deafult;
+    loader.style.display = LOADER.hide;
+    controls.style.marginTop = CONTROLS.position.default
+    controls.id = CONTROLS.show;
+
     const totalPages = data.total_pages > 200 ? 200 : data.total_pages
     totalPagesCounter.textContent = `/ ${totalPages}`
     currentPageCounter.setAttribute('max', totalPages)
+
     if (data.total === 0 && data.total_pages === 0) {
-        content.appendChild(noResultsMessage);
-        controls.id = 'controlsHide'
+        noResultsMessage.style.display = NO_RESULT_MESSAGE.show;
+        controls.id = CONTROLS.hide;
     } else {
-        controls.id = 'controlsShow'
+        noResultsMessage.style.display = NO_RESULT_MESSAGE.hide;
+        controls.id = CONTROLS.show
         for (const iterator of data.results) {
             content.appendChild(createImage(iterator.urls.regular))
         }
@@ -76,15 +110,16 @@ searchButton.addEventListener('click', ()=>{
 });
 
 searchBar.addEventListener('keydown', (event)=>{
-    if (event.keyCode === 13){
+    if (event.keyCode === KEYBOARD.enter){
         getImages(searchBar.value);
         searchBar.blur()
     }
 })
 
 currentPageCounter.addEventListener('keydown', (event)=>{
-    if (event.keyCode === 13){
-        if (currentPageCounter.value == '' || +currentPageCounter.value == NaN){
+    if (event.keyCode === KEYBOARD.enter){
+        currentPageCounter.value = Number(currentPageCounter.value);
+        if (!currentPageCounter.value){
             currentPageCounter.value = 1;
         }
         const targetPage = +currentPageCounter.value;
@@ -94,29 +129,34 @@ currentPageCounter.addEventListener('keydown', (event)=>{
             behavior: 'smooth'
           });
         getImages(searchBar.value, targetPage);
+        currentPageCounter.blur();
     }
 })
 
 currentPageCounter.addEventListener('input',() => {
-    if (currentPageCounter.value > +(totalPagesCounter.textContent.slice(2))) {
-        currentPageCounter.value = +(totalPagesCounter.textContent.slice(2))
-    } else if (currentPageCounter.value < 1 && currentPageCounter.value !== ''){
+    let value = currentPageCounter.value;
+    if (isNaN( Number(value) ) || Number(value) === 0){
+        console.log('detected');
+        value = value.replace(/[^1-9]/g, "");
+    }
+    value = value > getTotalPages() ? getTotalPages() : value;
+    currentPageCounter.value = value;
+})
+
+currentPageCounter.addEventListener('blur', ()=>{
+    if (currentPageCounter.value == '') {
         currentPageCounter.value = 1;
     }
 })
 
 function changePage(value){
     searchBar.value = currentQuery;
-    let targetPage = +currentPageCounter.value + value;
-    if (targetPage < 1){
+    let targetPage = Number(currentPageCounter.value) + value;
+    if (targetPage < 1 || targetPage == NaN || targetPage == 0){
         targetPage = 1;
         currentPageCounter.value = 1;
     }
-    if (targetPage == NaN || targetPage == 0){
-        targetPage = 1;
-        currentPageCounter.value = 1;
-    }
-    currentPageCounter.value = Number(currentPageCounter.value) + value;
+    currentPageCounter.value = targetPage;
     window.scroll({
         top: 0, 
         left: 0, 
