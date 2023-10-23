@@ -36,3 +36,30 @@
     }
 
 }
+
+@media screen and (height < 450px) {
+
+    body {
+        overflow: auto;
+    }
+
+    html {
+        padding: env(safe-area-inset);
+    }
+
+    .searchBar {
+        width: 55%;
+    }
+
+    .content {
+        margin-bottom: 20px;
+    }
+
+    .controls {
+        margin-bottom: 30px;
+    }
+
+    .currentPage {
+        width: 100px;
+    }
+}
