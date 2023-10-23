@@ -16,6 +16,7 @@ const totalPagesCounter = document.querySelector(".totalPages");
 const loader = document.querySelector('.loader');
 
 let currentQuery;
+let currentPage;
 
 const KEYBOARD = {
     enter: 13,
@@ -66,12 +67,14 @@ function createImage (url){
 
 async function getImages(query, page){
     currentQuery = query;
+    currentPage = page;
     content.innerHTML = CONTENT.clear;
     loader.style.display = LOADER.show;
     noResultsMessage.style.display = NO_RESULT_MESSAGE.hide;
     if (!page) {
         currentPageCounter.value = 1;
-        controls.id = CONTROLS.hide
+        currentPage = 1;
+        controls.id = CONTROLS.hide;
     } else {
         loader.style.top = LOADER.position.loading_another_page
         controls.style.marginTop = CONTROLS.position.loading_another_page
@@ -137,7 +140,6 @@ currentPageCounter.addEventListener('keydown', (event)=>{
 currentPageCounter.addEventListener('input',() => {
     let value = currentPageCounter.value;
     if (isNaN( Number(value) ) || Number(value) === 0){
-        console.log('detected');
         value = value.replace(/[^1-9]/g, "");
     }
     value = value > getTotalPages() ? getTotalPages() : value;
@@ -152,10 +154,11 @@ currentPageCounter.addEventListener('blur', ()=>{
 
 function changePage(value){
     searchBar.value = currentQuery;
-    let targetPage = Number(currentPageCounter.value) + value;
+    let targetPage = Number(currentPage) + value;
+    console.log(currentPage, value);
     if (targetPage < 1 || targetPage == NaN || targetPage == 0){
         targetPage = 1;
-        currentPageCounter.value = 1;
+        currentPage = 1;
     }
     currentPageCounter.value = targetPage;
     window.scroll({
