@@ -68,6 +68,7 @@ async function getImages(query, page){
     currentQuery = query;
     content.innerHTML = CONTENT.clear;
     loader.style.display = LOADER.show;
+    noResultsMessage.style.display = NO_RESULT_MESSAGE.hide;
     if (!page) {
         currentPageCounter.value = 1;
         controls.id = CONTROLS.hide
