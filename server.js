@@ -1,9 +1,9 @@
 const http = require('http');
 const url = require('url')
-const port = 8000;
-const host = '127.0.0.1'
-const API_KEY = '9gjvoXWa0NBklahjBs3QbNGnDsn7NnAUg6bqWktidPg'
-const axios = require('axios')
+const port = 3000;
+const host = '89.191.229.4';
+const API_KEY = '9gjvoXWa0NBklahjBs3QbNGnDsn7NnAUg6bqWktidPg';
+const axios = require('axios');
 
 
 const server = http.createServer((req, res)=>{
@@ -20,17 +20,19 @@ const server = http.createServer((req, res)=>{
             per_page: 12,
         },
         headers : {
-            "Authorization": `Client-ID ${API_KEY}`
-        }
-        })
+            "Authorization": `Client-ID ${API_KEY}`,
+        }})
+        
         res.writeHead(200, {
             'Content-type': 'application/json',
+	        "Access-Control-Allow-Origin": "*",
         })
         res.end(JSON.stringify(data))
     })();
     } else {
         res.writeHead(200, {
             'Content-type': 'text/plain',
+	    "Access-Control-Allow-Origin": "*",
         })
         res.end('Hello world!')
     }
