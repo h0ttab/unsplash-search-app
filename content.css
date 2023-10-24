@@ -9,7 +9,7 @@
 
 .content-pictureBlock {
     display: inline-flex;
-    aspect-ratio: 0.75 / 1;
+    aspect-ratio: 1 / 1;
     width: 23%;
     max-width: 23%;
     border: 1px gray solid;
@@ -21,9 +21,9 @@
 
 .content-pictureBlock__image {
     display: flex;
-    width: 90%;
-    height: max-content;
-    max-height: 90%;
+    object-fit: cover;
+    width: 98%;
+    height: 98%;
     margin: auto;
 }
 
