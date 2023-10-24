@@ -17,6 +17,29 @@ const totalPagesCounter = document.querySelector(".totalPages");
 
 const loader = document.querySelector('.loader');
 
+const fullSize = document.querySelector('.modal')
+
+const closeModalButton = document.querySelector('.modal__close')
+
+document.body.addEventListener('keydown', (e)=>{
+    if (e.key == 'Escape' && fullSize.classList.contains('open')){
+        document.body.classList.remove('noScroll')
+        fullSize.classList.remove('open')
+    }
+})
+
+closeModalButton.addEventListener('click', ()=>{
+    document.body.classList.remove('noScroll')
+    fullSize.classList.remove('open')
+})
+
+fullSize.addEventListener('click', (event)=>{
+    if(event.target === fullSize){
+        document.body.classList.remove('noScroll')
+        fullSize.classList.remove('open')
+    }
+})
+
 let currentQuery;
 let currentPage;
 
@@ -62,6 +85,11 @@ function createImage (url){
     const image = document.createElement('img');
     image.src = url;
     image.className = 'content-pictureBlock__image';
+    image.addEventListener('click', ()=>{
+        fullSize.classList.add('open');
+        document.body.classList.add('noScroll')
+        fullSize.querySelector('.modal__fullSizePicture').src = url;
+    })
 
     pictureBlock.appendChild(image);
     return pictureBlock;
@@ -161,7 +189,6 @@ currentPageCounter.addEventListener('blur', ()=>{
 function changePage(value){
     searchBar.value = currentQuery;
     let targetPage = Number(currentPage) + value;
-    console.log(currentPage, value);
     if (targetPage < 1 || targetPage == NaN || targetPage == 0){
         targetPage = 1;
         currentPage = 1;
