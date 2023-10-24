@@ -41,6 +41,13 @@
     color: rgb(30, 30, 30);
 }
 
+.searchBar-inputField::-webkit-search-decoration,
+.searchBar-inputField::-webkit-search-cancel-button,
+.searchBar-inputField::-webkit-search-results-button,
+.searchBar-inputField::-webkit-search-results-decoration {
+  display: none;
+}
+
 .searchBar-inputField::placeholder{
     color: rgba(30, 30, 30, 0.5);
 }
