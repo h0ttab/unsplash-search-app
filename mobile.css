@@ -38,6 +38,19 @@
     .noScroll {
         padding-right: 0;
     }
+
+    .controls {
+        margin-bottom: 30px;
+    }
+
+    #Vector {
+        scale: 0.75;
+    }
+
+    .modal__close {
+        top: -10px;
+        right: -10px;
+    }
 }
 
 @media screen and (height < 450px) and (orientation : landscape) {
@@ -67,10 +80,20 @@
     }
 
     .modal__box {
-        margin: 15px !important;
+        margin: 15px;
     }
 
     .noScroll {
         padding-right: 0;
     }
+
+    .modal__close {
+        top: -10px;
+        right: -10px;
+    }
+
+    #Vector {
+        scale: 0.75;
+    }
+
 }
