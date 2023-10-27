@@ -51,6 +51,10 @@
         top: -10px;
         right: -10px;
     }
+
+    .modal__close:hover {
+        scale: 0.75;
+    }
 }
 
 @media screen and (height < 450px) and (orientation : landscape) {
@@ -96,4 +100,7 @@
         scale: 0.75;
     }
 
+    .modal__close:hover {
+        scale: 0.75;
+    }
 }
