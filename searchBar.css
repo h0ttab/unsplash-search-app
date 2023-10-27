@@ -5,7 +5,7 @@
     justify-content: right;
     border: 1px gray solid;
     border-radius: 25px;
-    width: 25%;
+    width: 22%;
     height: 50px;
 }
 
@@ -14,14 +14,14 @@
     border: none;
     outline: none;
     height: 95%;
-    width: 80%;
+    width: 75%;
     margin: auto 0px auto 0px;
     font-size: 25px;
 }
 
 #searchBar-button{
-    height: 50px;
-    width: 60px;
+    height: 100%;
+    width: 20%;
     border-radius: 25px;
     border: none;
     background-color: transparent;

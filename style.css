@@ -9,6 +9,8 @@ body {
 
 .noScroll {
   overflow: hidden;
+  overflow: -moz-scrollbars-none;
+  -ms-overflow-style: none;
   padding-right: 16px;
 }
 
