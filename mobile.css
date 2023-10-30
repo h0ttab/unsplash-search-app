@@ -24,12 +24,13 @@
     }
 
     .modal__close {
+        scale: 1.75;
         top: -20px;
         right: -20px;
     }
 
     .modal__close:hover {
-        scale: 0.75;
+        scale: 1.75;
     }
 
     .navBarDefault .searchBar {
