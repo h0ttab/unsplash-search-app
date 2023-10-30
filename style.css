@@ -4,7 +4,7 @@
 }
 
 body {
-    background-color: rgb(71, 71, 71); 
+    background-color: rgb(251, 251, 251); 
 }
 
 .noScroll {
@@ -15,8 +15,9 @@ body {
 }
 
 .navBar{
-    display: flex;
-    height: 150px;
+  display: flex;
+  margin: 0 auto 0 auto;
+  height: 150px;
 }
 
 .loader {
@@ -24,7 +25,7 @@ body {
     position: absolute;
     top: 35vh;
     margin: auto;
-    color: #fff;
+    color: gray;
     font-size: 15px;
     width: 1em;
     height: 1em;
