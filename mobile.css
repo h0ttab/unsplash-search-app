@@ -74,14 +74,12 @@
 
     .searchBar {
         width: 55%;
+        margin: 10px auto;
+        height: 40px;
     }
 
     .content {
-        margin-bottom: 20px;
-    }
-
-    .controls {
-        margin-bottom: 30px;
+        margin-bottom: 0px;
     }
 
     .currentPage {
@@ -97,8 +95,8 @@
     }
 
     .modal__close {
-        top: -10px;
-        right: -10px;
+        top: -15px;
+        right: -20px;
     }
 
     #Vector {
@@ -111,10 +109,12 @@
 
     .navBarDefault .searchBar{
         width: 75%;
+        height: 60px;
     }
+
 }
 
-@media screen and (width < 1000px) and (width > 800px) {
+@media screen and (width < 1000px) and (width > 800px) and (height > 450px) {
     .content-pictureBlock {
         width: 25%;
         max-width: 30%;
