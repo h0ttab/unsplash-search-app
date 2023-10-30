@@ -2,7 +2,7 @@
     padding-left: 10px;
     overflow: hidden;
     box-sizing: border-box;
-    margin: 10px auto;
+    margin: 2% auto;
     display: flex;
     justify-content: right;
     border-radius: 6px;
@@ -33,6 +33,7 @@
     border: none;
     background-color: rgb(80, 120, 239);
     cursor: pointer;
+    margin: none;
 }
 
 .searchBar-button__picture {
@@ -74,4 +75,5 @@
 .navBarDefault .searchBar{
     width: 35%;
     transform: translateY(-50%);
+    margin: auto;
 }

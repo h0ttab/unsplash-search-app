@@ -56,6 +56,10 @@
     .modal__close:hover {
         scale: 0.75;
     }
+
+    .navBarDefault .searchBar{
+        width: 75%;
+    }
 }
 
 @media screen and (height < 450px) and (orientation : landscape) {
@@ -104,11 +108,32 @@
     .modal__close:hover {
         scale: 0.75;
     }
+
+    .navBarDefault .searchBar{
+        width: 75%;
+    }
 }
 
 @media screen and (width < 1000px) and (width > 800px) {
     .content-pictureBlock {
         width: 25%;
         max-width: 30%;
+    }
+
+    .navBarDefault .searchBar{
+        width: 75%;
+        height: 80px;
+    }
+
+    .searchBar {
+        width: 70%;
+    }
+
+    .searchBar-inputField {
+        font-size: 30px;
+    }
+
+    .modal__close {
+        scale: 1.4;
     }
 }

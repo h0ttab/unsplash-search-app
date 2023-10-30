@@ -1,4 +1,4 @@
-const API_KEY = 'bw68bOFNOa-XYI71LGEIh1zM69U-2rnxUOHaJTtq1L4';
+let API_KEY = '9gjvoXWa0NBklahjBs3QbNGnDsn7NnAUg6bqWktidPg';
 
 const content = document.querySelector('.content')
 
@@ -16,9 +16,17 @@ const fullSize = document.querySelector('.modal')
 
 const closeModalButton = document.querySelector('.modal__close')
 
+let API_timeout = 0;
+
 let scrollListener = function () {
     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-        changePage(1);
+        if (API_timeout == 0){
+            changePage(1);
+            API_timeout = 1;
+            setTimeout(()=>{API_timeout = 0}, 1000)
+        } else {
+            console.log("API is on timeout");
+        }
     }
 };
 document.body.addEventListener('keydown', (e)=>{
@@ -93,7 +101,9 @@ async function getImages(query, page){
         loader.style.top = LOADER.position.deafult
     }
 
-    const {data} = await axios.get(`https://api.unsplash.com/search/photos/`, {
+    try {
+
+    let {data} = await axios.get(`https://api.unsplash.com/search/photos/`, {
         params : {
             query: `${query}`,
             page: page ?? 1,
@@ -102,7 +112,7 @@ async function getImages(query, page){
         headers : {
             "Authorization": `Client-ID ${API_KEY}`,
         }
-    })
+    }) 
 
     loader.style.top = LOADER.position.deafult;
     loader.style.display = LOADER.hide;
@@ -116,6 +126,37 @@ async function getImages(query, page){
         for (const iterator of data.results) {
             content.appendChild(createImage(iterator.urls.regular))
         }
+    }
+    } catch (error) {
+        if (error.message === 'Request failed with status code 403' || error.message === 'Request failed with status code 401'){
+            API_KEY = 'bw68bOFNOa-XYI71LGEIh1zM69U-2rnxUOHaJTtq1L4';
+            let {data} = await axios.get(`https://api.unsplash.com/search/photos/`, {
+                params : {
+                    query: `${query}`,
+                    page: page ?? 1,
+                    per_page: 25,
+                },
+                headers : {
+                    "Authorization": `Client-ID ${API_KEY}`,
+                }
+            })
+
+            loader.style.top = LOADER.position.deafult;
+            loader.style.display = LOADER.hide;
+
+            if (data.total === 0) {
+                noResultsMessage.style.display = NO_RESULT_MESSAGE.show;
+                window.removeEventListener("scroll", scrollListener);
+            } else {
+                window.addEventListener("scroll", scrollListener);
+                noResultsMessage.style.display = NO_RESULT_MESSAGE.hide;
+                for (const iterator of data.results) {
+                    content.appendChild(createImage(iterator.urls.regular))
+                }
+            }
+
+        }
+
     }
 }
 
