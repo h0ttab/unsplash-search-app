@@ -35,7 +35,7 @@
     }
     
     .modal__box>img {
-        max-height: 80vh;
+        max-height: 70vh;
         max-width: 90vw;
     }
 }
