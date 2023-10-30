@@ -65,3 +65,11 @@
 .searchBar-inputField::-webkit-search-cancel-button{
     display: none;
 }
+
+.navBarDefault {
+    height: 100vh;
+}
+
+.navBarDefault .searchBar{
+    transform: translateY(-50%);
+}

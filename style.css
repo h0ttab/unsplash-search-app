@@ -15,9 +15,13 @@ body {
 }
 
 .navBar{
+  background-color: inherit;
+  z-index: 1;
+  position: sticky;
+  top: 0;
   display: flex;
   margin: 0 auto 0 auto;
-  height: 150px;
+  height: 70px;
 }
 
 .loader {

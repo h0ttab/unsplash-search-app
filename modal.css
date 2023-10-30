@@ -42,17 +42,13 @@
     max-width: 90vw;
 }
 
-.modal__box:hover #Vector {
-    scale: 1;
-}
-
 .modal__close {
     outline: none;
     border: none;
     background-color: transparent;
     position: absolute;
-    right: 10px;
-    top: 10px;
+    right: -20px;
+    top: -20px;
 }
 
 .modal__close:hover {
