@@ -1,4 +1,4 @@
-const API_KEY = '9gjvoXWa0NBklahjBs3QbNGnDsn7NnAUg6bqWktidPg';
+const API_KEY = 'bw68bOFNOa-XYI71LGEIh1zM69U-2rnxUOHaJTtq1L4';
 
 const content = document.querySelector('.content')
 
@@ -97,7 +97,7 @@ async function getImages(query, page){
         params : {
             query: `${query}`,
             page: page ?? 1,
-            per_page: 15,
+            per_page: 25,
         },
         headers : {
             "Authorization": `Client-ID ${API_KEY}`,

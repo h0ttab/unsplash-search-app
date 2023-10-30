@@ -8,6 +8,7 @@
     .content-pictureBlock{
         width: 40%;
         max-width: 40%;
+        margin: 5px;
     }
 
     .totalPages, .currentPage {
@@ -48,8 +49,8 @@
     }
 
     .modal__close {
-        top: -10px;
-        right: -10px;
+        top: -20px;
+        right: -20px;
     }
 
     .modal__close:hover {
@@ -102,5 +103,12 @@
 
     .modal__close:hover {
         scale: 0.75;
+    }
+}
+
+@media screen and (width < 1000px) and (width > 800px) {
+    .content-pictureBlock {
+        width: 25%;
+        max-width: 30%;
     }
 }

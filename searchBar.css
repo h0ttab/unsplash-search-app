@@ -1,12 +1,13 @@
 .searchBar {
+    padding-left: 10px;
     overflow: hidden;
     box-sizing: border-box;
-    margin: auto;
+    margin: 10px auto;
     display: flex;
     justify-content: right;
     border-radius: 6px;
-    width: 35%;
-    height: 50px;
+    width: 40%;
+    height: 60px;
     background-color: white;
     -webkit-box-shadow: 0px 0px 3px 0px rgba(34, 60, 80, 0.2) inset;
     -moz-box-shadow: 0px 0px 3px 0px rgba(34, 60, 80, 0.2) inset;
@@ -18,7 +19,7 @@
     border: none;
     outline: none;
     height: 95%;
-    width: 85%;
+    width: 90%;
     min-width: 75%;
     margin: auto 0px auto 0px;
     font-size: 25px;
@@ -71,5 +72,6 @@
 }
 
 .navBarDefault .searchBar{
+    width: 35%;
     transform: translateY(-50%);
 }
