@@ -34,6 +34,10 @@
         width: 75%;
     }
     
+    .modal__box>img {
+        max-height: 80vh;
+        max-width: 90vw;
+    }
 }
 
 @media screen and (height < 450px) and (orientation : landscape) {
