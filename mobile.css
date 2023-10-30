@@ -5,7 +5,7 @@
         padding-left: 15px;
     }
 
-    .content-pictureBlock {
+    .content__pictureBlock {
         width: 40%;
         max-width: 40%;
         margin: 5px;
@@ -87,7 +87,7 @@
 }
 
 @media screen and (width < 1000px) and (width > 800px) and (height > 450px) {
-    .content-pictureBlock {
+    .content__pictureBlock {
         width: 25%;
         max-width: 30%;
     }
