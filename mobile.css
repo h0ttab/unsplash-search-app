@@ -5,43 +5,18 @@
         padding-left: 15px;
     }
 
-    .content-pictureBlock{
+    .content-pictureBlock {
         width: 40%;
         max-width: 40%;
         margin: 5px;
     }
 
-    .totalPages, .currentPage {
-        font-size: 20px;
-    }
-
-    .currentPage {
-       margin-left: 10px;
-       width: 60px;
-    }
-
-    .totalPages {
-        margin-right: 10px;
-    }
-
-    .controlButton {
-        height: 40px;
-        width: 100px;
-        font-size: 18px;
-    }
-
-    
-    .noResultsMessage{
+    .noResultsMessage {
         font-size: 35px;
-        text-align: center;
     }
 
     .noScroll {
         padding-right: 0;
-    }
-
-    .controls {
-        margin-bottom: 30px;
     }
 
     #Vector {
@@ -57,9 +32,10 @@
         scale: 0.75;
     }
 
-    .navBarDefault .searchBar{
+    .navBarDefault .searchBar {
         width: 75%;
     }
+    
 }
 
 @media screen and (height < 450px) and (orientation : landscape) {
@@ -80,10 +56,6 @@
 
     .content {
         margin-bottom: 0px;
-    }
-
-    .currentPage {
-        width: 100px;
     }
 
     .modal__box {
@@ -107,7 +79,7 @@
         scale: 0.75;
     }
 
-    .navBarDefault .searchBar{
+    .navBarDefault .searchBar {
         width: 75%;
         height: 60px;
     }
@@ -120,7 +92,7 @@
         max-width: 30%;
     }
 
-    .navBarDefault .searchBar{
+    .navBarDefault .searchBar {
         width: 75%;
         height: 80px;
     }
@@ -129,7 +101,7 @@
         width: 70%;
     }
 
-    .searchBar-inputField {
+    .searchBar__inputField {
         font-size: 30px;
     }
 

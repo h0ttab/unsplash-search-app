@@ -1,30 +1,30 @@
 .content {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     height: fit-content;
     max-width: 100%;
     font-size: 0;
-    justify-content: center;
 }
 
-.content-pictureBlock {
+.content__pictureBlock {
     display: inline-flex;
+    justify-content: center;
+    vertical-align: middle;
     aspect-ratio: 1 / 1;
     width: 18%;
     max-width: 18%;
     border: 1px rgba(0, 0, 0, 0.6) solid;
     background-color: white;
-    justify-content: center;
-    vertical-align: middle;
     margin: 10px;
     cursor: pointer;
 }
 
-.content-pictureBlock:hover {
+.content__pictureBlock:hover {
     scale: 1.02;
 }
 
-.content-pictureBlock__image {
+.content__pictureBlock__image {
     display: flex;
     object-fit: cover;
     width: 100%;
@@ -32,10 +32,11 @@
     margin: auto;
 }
 
-.noResultsMessage{
+.noResultsMessage {
     display: none;
     flex-direction: column;
     align-items: center;
+    text-align: center;
     width: fit-content;
     font-size: 75px;
     font-family: sans-serif;

@@ -17,9 +17,9 @@
 
     const navbar = document.querySelector('.navBar');
 
-    const searchButton = document.querySelector('#searchBar-button');
+    const searchButton = document.querySelector('#searchBar__button');
 
-    const searchBar = document.querySelector('.searchBar-inputField');
+    const searchBar = document.querySelector('.searchBar__inputField');
 
     const noResultsMessage = document.querySelector('.noResultsMessage');
 
@@ -108,7 +108,7 @@ function createImage (url){
 
     const image = document.createElement('img');
     image.src = url;
-    image.className = 'content-pictureBlock__image';
+    image.className = 'content__pictureBlock__image';
 
     // Добавляем слушатель событий для клика по картинке
     image.addEventListener('click', ()=>{
