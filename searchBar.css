@@ -9,9 +9,9 @@
     width: 40%;
     height: 60px;
     background-color: white;
-    -webkit-box-shadow: 0px 0px 3px 0px rgba(34, 60, 80, 0.2) inset;
-    -moz-box-shadow: 0px 0px 3px 0px rgba(34, 60, 80, 0.2) inset;
-    box-shadow: 0px 0px 3px 0px rgba(34, 60, 80, 0.2) inset;
+    -webkit-box-shadow: 0px 0px 3px 0px rgba(34, 60, 80, 0.4) inset;
+    -moz-box-shadow: 0px 0px 3px 0px rgba(34, 60, 80, 0.4) inset;
+    box-shadow: 0px 0px 3px 0px rgba(34, 60, 80, 0.4) inset;
 }
 
 .searchBar:hover{

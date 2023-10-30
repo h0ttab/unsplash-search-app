@@ -104,7 +104,7 @@
 function createImage (url){
 
     const pictureBlock = document.createElement('div');
-    pictureBlock.className = 'content-pictureBlock';
+    pictureBlock.className = 'content__pictureBlock';
 
     const image = document.createElement('img');
     image.src = url;
