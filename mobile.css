@@ -19,18 +19,15 @@
         padding-right: 0;
     }
 
-    #Vector {
-        scale: 1.75;
-    }
-
     .modal__close {
-        scale: 1.75;
         top: -20px;
         right: -20px;
     }
 
+    #vector,
+    .modal__close,
     .modal__close:hover {
-        scale: 1.75;
+        scale: 1;
     }
 
     .navBarDefault .searchBar {
