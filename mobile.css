@@ -58,7 +58,7 @@
     }
 
     .searchBar {
-        width: 55%;
+        width: 77%;
         margin: 10px auto;
         height: 40px;
     }
@@ -108,6 +108,7 @@
 
     .searchBar {
         width: 70%;
+        margin: 20px auto;
     }
 
     .searchBar__inputField {
